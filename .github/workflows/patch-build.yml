@@ -1,0 +1,28 @@
+name: Patch Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-patch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show project structure
+        run: ls -R
+
+      - name: Create patch file
+        run: |
+          mkdir build
+          zip -r build/patch-v1.1.zip client
+
+      - name: Upload patch artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: patch-file
+          path: build/patch-v1.1.zip
